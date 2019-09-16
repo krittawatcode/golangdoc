@@ -40,11 +40,6 @@ func main() {
 		"orange": 0.99,
 	}
 
-	// mux := http.NewServeMux()
-	// mux.Handle("/items", http.HandlerFunc(inven.items))
-	// mux.Handle("/price", http.HandlerFunc(inven.price))
-	// mux.Handle("/", http.HandlerFunc(inven.notFound))
-
 	http.HandleFunc("/items", inven.items)
 	http.HandleFunc("/price", inven.price)
 	http.HandleFunc("/", inven.notFound)
