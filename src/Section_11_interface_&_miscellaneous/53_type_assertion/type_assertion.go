@@ -16,9 +16,10 @@ func main() {
 		https://stackoverflow.com/questions/20518457/need-clarification-about-dynamic-types-in-golang?fbclid=IwAR2PWgf8BIBSZtqUrqg9MRUyd_xTFdqMSAtdymmWfUJ1J6XpAm8TS71TFHM
 	*/
 	var w io.Writer // Write(p []byte)(n int, err error)
-	w = os.Stdout
+	// w -> interface type -> Writer
+	w = os.Stdout // interface dynamic value is type *File
 
-	result := w.(*os.File)
+	result := w.(*os.File) // check dynamic value is *os.File or not
 	fmt.Printf("%T, %#v\n", w, w)
 	fmt.Printf("%T, %#v\n", result, result)
 
