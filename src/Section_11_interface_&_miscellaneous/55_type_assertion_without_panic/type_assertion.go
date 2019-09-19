@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 )
 
@@ -18,11 +19,12 @@ func (m MyIO) Read(p []byte) (n int, err error) {
 }
 
 func main() {
-	// x.(T)
-	var w io.Writer // Write(p []byte)(n int, err error)
-	w = os.Stdout
 
-	result := w.(io.ReadWriter)
+	var w io.Writer // Write(p []byte)(n int, err error)
+	w = os.Stdout   // change dynamic type to *os.File
+
+	// result := w.(MyIO) // panic
+	result := w.(http.Handler)
 	fmt.Printf("%T, %#v\n", w, w)
 	fmt.Printf("%T, %#v\n", result, result)
 
