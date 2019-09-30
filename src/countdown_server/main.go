@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"time"
 )
 
 func main() {
@@ -13,16 +14,44 @@ func main() {
 		log.Fatal(err)
 	}
 
-	conn, err := listener.Accept()
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	// conn, err := listener.Accept()
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return
+	// }
 
-	countingDownHandler(conn)
+	// countingDownHandler(conn)
+
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		countingDownHandler(conn)
+	}
 }
 
 func countingDownHandler(conn net.Conn) {
-	defer conn.Close()
-	io.WriteString(conn, "Hello")
+	// defer conn.Close()
+	defer func() {
+		io.WriteString(conn, "Your connection will be closed by server")
+		conn.Close()
+	}()
+
+	count := 5
+
+	for {
+		io.WriteString(conn, "Hello savior\n")
+		time.Sleep(time.Second)
+		count--
+		if count == 0 {
+			io.WriteString(conn, "Enter number : ")
+			// todo
+			break
+		}
+	}
+
+	io.WriteString(conn, "Hello\n")
 }
