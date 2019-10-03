@@ -24,6 +24,7 @@ func main() {
 
 	for {
 		conn, err := listener.Accept()
+		log.Println("New client is connected : ")
 		if err != nil {
 			log.Println(err)
 			return
@@ -36,7 +37,7 @@ func main() {
 func countingDownHandler(conn net.Conn) {
 	// defer conn.Close()
 	defer func() {
-		io.WriteString(conn, "Your connection will be closed by server")
+		io.WriteString(conn, "Your connection will be closed by server : ")
 		conn.Close()
 	}()
 
