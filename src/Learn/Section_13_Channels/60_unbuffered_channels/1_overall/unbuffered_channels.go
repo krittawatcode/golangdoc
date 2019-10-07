@@ -1,7 +1,8 @@
 package main
 
 func main() {
-	// uncomment to read
+	// overall
+
 	/*
 		ch := make(chan int)
 		done := make(chan struct{}) // done <- struct{}{}

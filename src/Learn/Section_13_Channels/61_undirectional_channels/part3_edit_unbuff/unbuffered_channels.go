@@ -15,13 +15,6 @@ func main() {
 	go square(ch, chSquare, done)
 	go receiver(chSquare, done)
 
-	// doneStatus := <-done
-	// fmt.Println("Done status : ", doneStatus)
-	// doneStatus = <-done
-	// fmt.Println("Done status : ", doneStatus)
-	// doneStatus = <-done
-	// fmt.Println("Done status : ", doneStatus)
-
 	for v := range done {
 		fmt.Println("Done status : ", v)
 	}
@@ -30,7 +23,7 @@ func main() {
 
 }
 
-func sender(ch chan int, done chan string) {
+func sender(ch chan<- int, done chan<- string) {
 	for i := 0; i <= 5; i++ {
 		fmt.Println("Sending value : ", i)
 		ch <- i
@@ -41,7 +34,7 @@ func sender(ch chan int, done chan string) {
 	fmt.Println("Sender done")
 }
 
-func receiver(ch chan int, done chan string) {
+func receiver(ch <-chan int, done chan<- string) {
 	for v := range ch {
 		fmt.Println("\tReceive value : ", v)
 	}
@@ -50,7 +43,7 @@ func receiver(ch chan int, done chan string) {
 	close(done)
 }
 
-func square(ch chan int, chSquare chan int, done chan string) {
+func square(ch <-chan int, chSquare chan<- int, done chan<- string) {
 	for v := range ch {
 		chSquare <- v * v
 	}
